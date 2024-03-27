@@ -1,8 +1,8 @@
 package com.zb.deuggeun.member.type;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum ProfileVisibility {
   ACTIVE("프로필 공개"),
   INACTIVE("프로필 비공개");

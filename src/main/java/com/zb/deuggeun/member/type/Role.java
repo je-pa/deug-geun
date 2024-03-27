@@ -1,8 +1,8 @@
 package com.zb.deuggeun.member.type;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum Role {
   ROLE_MEMBER("회원"),
   ROLE_TRAINER("트레이너");
