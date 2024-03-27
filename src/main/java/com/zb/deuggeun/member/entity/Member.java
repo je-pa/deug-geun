@@ -13,7 +13,6 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
@@ -32,12 +31,11 @@ public class Member extends BaseEntity {
 
   // 사용자 이메일
   @Column(nullable = false)
-  private String email;
+  private final String email;
 
   // 비밀번호
-  @Setter
   @Column(nullable = false)
-  private String password;
+  private final String password;
 
   // 프로필
   private String profile;
