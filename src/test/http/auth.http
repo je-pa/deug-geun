@@ -1,0 +1,19 @@
+### 회원가입
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "name": "유저1",
+  "email": "abc@gmail.com",
+  "password": "pass1",
+  "role": "ROLE_MEMBER"
+}
+
+### 로그인
+POST http://localhost:8080/auth/signin
+Content-Type: application/json
+
+{
+  "email": "abc@gmail.com",
+  "password": "pass1"
+}
