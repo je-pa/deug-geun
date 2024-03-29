@@ -20,7 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
-  @Column(name = "created_date", nullable = false, updatable = false)
+  @Column(name = "created_datetime", nullable = false, updatable = false)
   @CreatedDate
   private LocalDateTime createdDateTime;
 
