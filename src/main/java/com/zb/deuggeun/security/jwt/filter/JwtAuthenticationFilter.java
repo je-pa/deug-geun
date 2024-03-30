@@ -38,8 +38,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       // 시큐리티 컨텍스트에 인증정보 넣어줌
       SecurityContextHolder.getContext().setAuthentication(auth);
 
-      log.info(String.format("[%s] -> %s", MySecurityUtil.getCustomUserDetails().getUsername(),
-          request.getRequestURI()));
+      log.info("[{}] -> {}",
+          MySecurityUtil.getCustomUserDetails().getUsername(),
+          request.getRequestURI());
     }
     // 필터가 연속적으로 되도록
     filterChain.doFilter(request, response);
