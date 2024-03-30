@@ -4,8 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,17 +13,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CustomExceptionHandler {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(CustomExceptionHandler.class);
-
   @ExceptionHandler(RuntimeException.class)
   public ResponseEntity<Map<String, String>> handleException(
       RuntimeException e, HttpServletRequest request) {
 
     HttpStatus status = HttpStatus.BAD_REQUEST;
     if (e instanceof CustomException customException) {
-      status = HttpStatus.valueOf(customException.getStatusCode());
+      status = customException.getStatusCode();
     }
-    LOGGER.error("exceptionHandler 호출, {}, {}, {}", status.value(), request.getRequestURI(),
+    log.error("exceptionHandler 호출, {}, {}, {}", status.value(), request.getRequestURI(),
         e.getMessage());
 
     Map<String, String> response = getResponse(e, status);

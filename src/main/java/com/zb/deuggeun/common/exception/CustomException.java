@@ -1,15 +1,17 @@
 package com.zb.deuggeun.common.exception;
 
+import org.springframework.http.HttpStatus;
+
 public class CustomException extends RuntimeException {
 
-  private final int statusCode;
+  private final HttpStatus statusCode;
 
-  public CustomException(int statusCode, String message) {
+  public CustomException(HttpStatus statusCode, String message) {
     super(message);
     this.statusCode = statusCode;
   }
 
-  public int getStatusCode() {
+  public HttpStatus getStatusCode() {
     return statusCode;
   }
 }
