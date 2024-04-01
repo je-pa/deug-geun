@@ -20,6 +20,10 @@ public class CustomUserDetails implements UserDetails {
     return list;
   }
 
+  public Long getMemberId() {
+    return member.getId();
+  }
+
   @Override
   public String getPassword() {
     return member.getPassword();
