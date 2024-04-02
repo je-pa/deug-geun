@@ -3,10 +3,10 @@ POST http://localhost:8080/auth/signup
 Content-Type: application/json
 
 {
-  "name": "유저1",
-  "email": "abc@gmail.com",
+  "name": "트1",
+  "email": "t1@gmail.com",
   "password": "pass1",
-  "role": "ROLE_MEMBER"
+  "role": "ROLE_TRAINER"
 }
 
 ### 로그인
@@ -14,6 +14,6 @@ POST http://localhost:8080/auth/signin
 Content-Type: application/json
 
 {
-  "email": "abc@gmail.com",
+  "email": "t1@gmail.com",
   "password": "pass1"
 }
