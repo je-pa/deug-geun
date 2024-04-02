@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum ExceptionCode {
   IMMUTABLE_STATUS(HttpStatus.BAD_REQUEST, ExceptionMessage.IMMUTABLE_STATUS),
+  MAX_ACTIVE_PROGRAM_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST,
+      ExceptionMessage.MAX_ACTIVE_PROGRAM_LIMIT_EXCEEDED),
   // Unauthorized
   AUTHENTICATION_ISSUE(HttpStatus.UNAUTHORIZED, ExceptionMessage.AUTHENTICATION_ISSUE),
   TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, ExceptionMessage.TOKEN_EXPIRED),

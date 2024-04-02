@@ -6,6 +6,7 @@ import lombok.experimental.UtilityClass;
 public class ExceptionMessage {
 
   public static final String IMMUTABLE_STATUS = "수정 가능한 상태가 아닙니다.";
+  public static final String MAX_ACTIVE_PROGRAM_LIMIT_EXCEEDED = "활성화 프로그램의 최대 개수를 초과했습니다.";
   public static final String AUTHENTICATION_ISSUE = "인증 이슈가 있습니다.";
   public static final String TOKEN_EXPIRED = "토큰이 만료되었습니다.";
   public static final String PASSWORD_MISMATCH = "비밀번호가 일치하지 않습니다.";

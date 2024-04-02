@@ -2,6 +2,9 @@ package com.zb.deuggeun.program.entity;
 
 import static com.zb.deuggeun.common.exception.ExceptionCode.IMMUTABLE_STATUS;
 import static com.zb.deuggeun.common.exception.ExceptionCode.LOGIN_USER_MISMATCH;
+import static com.zb.deuggeun.program.type.ProgramStatus.ACTIVE;
+import static com.zb.deuggeun.program.type.ProgramStatus.DELETED;
+import static com.zb.deuggeun.program.type.ProgramStatus.INACTIVE;
 
 import com.zb.deuggeun.common.entity.BaseEntity;
 import com.zb.deuggeun.common.exception.CustomException;
@@ -63,6 +66,27 @@ public class Program extends BaseEntity {
     this.capacity = request.capacity();
     this.location = request.location();
     return this;
+  }
+
+  public Program activate() {
+    validateTrainerMatchLoginUser();
+    status = ACTIVE;
+    return this;
+  }
+
+  public Program inactivate() {
+    validateTrainerMatchLoginUser();
+    status = INACTIVE;
+    return this;
+  }
+
+  public boolean delete() {
+    validateTrainerMatchLoginUser();
+    if (this.status != INACTIVE) {
+      throw new CustomException(IMMUTABLE_STATUS.getStatus(), IMMUTABLE_STATUS.getMessage());
+    }
+    status = DELETED;
+    return status == DELETED;
   }
 
   private void validateStatusIsCreated() {

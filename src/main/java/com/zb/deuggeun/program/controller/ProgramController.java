@@ -7,10 +7,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,5 +35,20 @@ public class ProgramController {
       @Valid @RequestBody UpdateProgramDto.Request request
   ) {
     return ResponseEntity.ok(programService.update(request));
+  }
+
+  @PatchMapping("/activate")
+  public ResponseEntity<UpdateProgramDto.Response> activate(@RequestParam Long programId) {
+    return ResponseEntity.ok(programService.activate(programId));
+  }
+
+  @PatchMapping("/inactivate")
+  public ResponseEntity<UpdateProgramDto.Response> inactivate(@RequestParam Long programId) {
+    return ResponseEntity.ok(programService.inactivate(programId));
+  }
+
+  @PatchMapping("/delete")
+  public ResponseEntity<Boolean> delete(@RequestParam Long programId) {
+    return ResponseEntity.ok(programService.delete(programId));
   }
 }
