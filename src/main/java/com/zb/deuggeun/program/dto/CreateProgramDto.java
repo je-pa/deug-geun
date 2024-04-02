@@ -1,7 +1,6 @@
 package com.zb.deuggeun.program.dto;
 
 import com.zb.deuggeun.member.entity.Member;
-import com.zb.deuggeun.member.entity.Trainer;
 import com.zb.deuggeun.program.entity.Program;
 import com.zb.deuggeun.program.type.ProgramStatus;
 import jakarta.validation.constraints.NotBlank;
