@@ -3,6 +3,7 @@ package com.zb.deuggeun.security.service;
 import com.zb.deuggeun.common.exception.ExceptionCode;
 import com.zb.deuggeun.member.repository.MemberRepository;
 import com.zb.deuggeun.security.domain.CustomUserDetails;
+import com.zb.deuggeun.security.domain.UserDetailsDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +18,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    return new CustomUserDetails(memberRepository.findByEmail(username)
+    return new CustomUserDetails(getUserDetailsDomain(username));
+  }
+
+  private UserDetailsDomain getUserDetailsDomain(String username) {
+    return UserDetailsDomain.fromEntity(memberRepository.findByEmail(username)
         .orElseThrow(() -> new UsernameNotFoundException(
             ExceptionCode.ENTITY_NOT_FOUND.getMessage()
         )));
