@@ -38,16 +38,19 @@ public class ProgramController {
   }
 
   @PatchMapping("/activate")
+  @PreAuthorize("hasRole('TRAINER')")
   public ResponseEntity<UpdateProgramDto.Response> activate(@RequestParam Long programId) {
     return ResponseEntity.ok(programService.activate(programId));
   }
 
   @PatchMapping("/inactivate")
+  @PreAuthorize("hasRole('TRAINER')")
   public ResponseEntity<UpdateProgramDto.Response> inactivate(@RequestParam Long programId) {
     return ResponseEntity.ok(programService.inactivate(programId));
   }
 
   @PatchMapping("/delete")
+  @PreAuthorize("hasRole('TRAINER')")
   public ResponseEntity<Boolean> delete(@RequestParam Long programId) {
     return ResponseEntity.ok(programService.delete(programId));
   }
