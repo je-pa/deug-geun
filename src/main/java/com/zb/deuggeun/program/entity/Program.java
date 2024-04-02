@@ -56,7 +56,8 @@ public class Program extends BaseEntity {
   private Member trainer;
 
   public Program update(UpdateProgramDto.Request request) {
-    isAvailableUpdateWithThrow();
+    validateTrainerMatchLoginUser();
+    validateStatusIsCreated();
     this.name = request.name();
     this.description = request.description();
     this.capacity = request.capacity();
@@ -64,13 +65,15 @@ public class Program extends BaseEntity {
     return this;
   }
 
-  private boolean isAvailableUpdateWithThrow() {
-    if (!MemberUtil.isMatchLoginUser(this.trainer.getId())) {
-      throw new CustomException(LOGIN_USER_MISMATCH.getStatus(), LOGIN_USER_MISMATCH.getMessage());
-    }
+  private void validateStatusIsCreated() {
     if (this.status != ProgramStatus.CREATED) {
       throw new CustomException(IMMUTABLE_STATUS.getStatus(), IMMUTABLE_STATUS.getMessage());
     }
-    return true;
+  }
+
+  private void validateTrainerMatchLoginUser() {
+    if (!MemberUtil.isMatchLoginUser(this.trainer.getId())) {
+      throw new CustomException(LOGIN_USER_MISMATCH.getStatus(), LOGIN_USER_MISMATCH.getMessage());
+    }
   }
 }
