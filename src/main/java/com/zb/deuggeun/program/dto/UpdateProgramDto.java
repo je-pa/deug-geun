@@ -3,6 +3,7 @@ package com.zb.deuggeun.program.dto;
 import com.zb.deuggeun.program.entity.Program;
 import com.zb.deuggeun.program.type.ProgramStatus;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -22,6 +23,7 @@ public class UpdateProgramDto {
       int capacity,
 
       @NotBlank
+      @Pattern(regexp = "^POINT\\((-?\\d+(?:\\.\\d+)?),\\s*(-?\\d+(?:\\.\\d+)?)\\)$", message = "올바른 위치 형식이 아닙니다.")
       String location
 
   ) {
