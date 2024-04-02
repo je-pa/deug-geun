@@ -4,6 +4,7 @@ import com.zb.deuggeun.member.entity.Member;
 import com.zb.deuggeun.program.entity.Program;
 import com.zb.deuggeun.program.type.ProgramStatus;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.experimental.UtilityClass;
 
@@ -17,7 +18,7 @@ public class CreateProgramDto {
       @NotBlank
       String description,
 
-      @NotBlank
+      @NotNull
       int capacity,
 
       @NotBlank

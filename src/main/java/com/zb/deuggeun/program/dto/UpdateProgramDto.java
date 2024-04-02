@@ -3,6 +3,7 @@ package com.zb.deuggeun.program.dto;
 import com.zb.deuggeun.program.entity.Program;
 import com.zb.deuggeun.program.type.ProgramStatus;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.experimental.UtilityClass;
 
@@ -10,7 +11,7 @@ import lombok.experimental.UtilityClass;
 public class UpdateProgramDto {
 
   public record Request(
-      @NotBlank
+      @NotNull
       Long programId,
 
       @NotBlank
@@ -19,7 +20,7 @@ public class UpdateProgramDto {
       @NotBlank
       String description,
 
-      @NotBlank
+      @NotNull
       int capacity,
 
       @NotBlank
