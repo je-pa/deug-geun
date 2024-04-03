@@ -3,6 +3,7 @@ package com.zb.deuggeun.program.entity;
 import static com.zb.deuggeun.common.exception.ExceptionCode.IMMUTABLE_STATUS;
 import static com.zb.deuggeun.common.exception.ExceptionCode.LOGIN_USER_MISMATCH;
 import static com.zb.deuggeun.program.type.ProgramStatus.ACTIVE;
+import static com.zb.deuggeun.program.type.ProgramStatus.CREATED;
 import static com.zb.deuggeun.program.type.ProgramStatus.DELETED;
 import static com.zb.deuggeun.program.type.ProgramStatus.INACTIVE;
 
@@ -84,11 +85,11 @@ public class Program extends BaseEntity {
 
   public boolean delete() {
     validateTrainerMatchLoginUser();
-    if (this.status != INACTIVE) {
-      throw new CustomException(IMMUTABLE_STATUS.getStatus(), IMMUTABLE_STATUS.getMessage());
+    if (this.status == INACTIVE || this.status == CREATED) {
+      status = DELETED;
+      return status == DELETED;
     }
-    status = DELETED;
-    return status == DELETED;
+    throw new CustomException(IMMUTABLE_STATUS.getStatus(), IMMUTABLE_STATUS.getMessage());
   }
 
   private void validateStatusIsCreated() {
