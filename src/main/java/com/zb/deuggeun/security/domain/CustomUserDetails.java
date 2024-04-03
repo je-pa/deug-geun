@@ -1,6 +1,5 @@
 package com.zb.deuggeun.security.domain;
 
-import com.zb.deuggeun.member.entity.Member;
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
@@ -11,23 +10,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-  private final transient Member member;
+  private final transient UserDetailsDomain details;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     Collection<GrantedAuthority> list = new ArrayList<>();
-    list.add(new SimpleGrantedAuthority(member.getRole().name()));
+    list.add(new SimpleGrantedAuthority(details.role().name()));
     return list;
   }
 
   @Override
   public String getPassword() {
-    return member.getPassword();
+    return details.password();
   }
 
   @Override
   public String getUsername() {
-    return member.getEmail();
+    return details.email();
   }
 
   @Override
