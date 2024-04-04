@@ -4,7 +4,7 @@ import static com.zb.deuggeun.common.exception.ExceptionCode.MAX_ACTIVE_PROGRAM_
 import static com.zb.deuggeun.program.type.ProgramStatus.ACTIVE;
 
 import com.zb.deuggeun.common.exception.CustomException;
-import com.zb.deuggeun.common.util.EntityServiceUtil;
+import com.zb.deuggeun.common.service.EntityService;
 import com.zb.deuggeun.member.repository.MemberRepository;
 import com.zb.deuggeun.program.dto.CreateProgramDto;
 import com.zb.deuggeun.program.dto.UpdateProgramDto;
@@ -26,7 +26,7 @@ public class ProgramService {
   public CreateProgramDto.Response create(CreateProgramDto.Request request) {
 
     return CreateProgramDto.Response.fromEntity(programRepository.save(request.toEntity(
-        EntityServiceUtil.findById(
+        EntityService.findById(
             memberRepository,
             MySecurityUtil.getCustomUserDetails().getMemberId())
     )));
@@ -65,6 +65,6 @@ public class ProgramService {
   }
 
   private Program getProgramById(Long programId) {
-    return EntityServiceUtil.findById(programRepository, programId);
+    return EntityService.findById(programRepository, programId);
   }
 }
