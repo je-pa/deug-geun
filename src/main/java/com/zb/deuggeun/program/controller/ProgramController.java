@@ -1,5 +1,6 @@
 package com.zb.deuggeun.program.controller;
 
+import com.zb.deuggeun.program.dto.ActivateProgramDto;
 import com.zb.deuggeun.program.dto.CreateProgramDto;
 import com.zb.deuggeun.program.dto.UpdateProgramDto;
 import com.zb.deuggeun.program.service.ProgramService;
@@ -40,8 +41,10 @@ public class ProgramController {
 
   @PatchMapping("/activate")
   @PreAuthorize("hasRole('TRAINER')")
-  public ResponseEntity<UpdateProgramDto.Response> activate(@RequestParam Long programId) {
-    return ResponseEntity.ok(programService.activate(programId));
+  public ResponseEntity<UpdateProgramDto.Response> activate(
+      @Valid @RequestBody ActivateProgramDto request
+  ) {
+    return ResponseEntity.ok(programService.activate(request));
   }
 
   @PatchMapping("/inactivate")

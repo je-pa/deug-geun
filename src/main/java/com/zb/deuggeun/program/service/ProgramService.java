@@ -6,6 +6,7 @@ import static com.zb.deuggeun.program.type.ProgramStatus.ACTIVE;
 import com.zb.deuggeun.common.exception.CustomException;
 import com.zb.deuggeun.common.service.EntityService;
 import com.zb.deuggeun.member.repository.MemberRepository;
+import com.zb.deuggeun.program.dto.ActivateProgramDto;
 import com.zb.deuggeun.program.dto.CreateProgramDto;
 import com.zb.deuggeun.program.dto.UpdateProgramDto;
 import com.zb.deuggeun.program.entity.Program;
@@ -39,15 +40,18 @@ public class ProgramService {
   }
 
   @Transactional
-  public UpdateProgramDto.Response activate(Long programId) {
-    Program program = getProgramById(programId);
-    int activeProgramCount = programRepository.countByTrainerAndAndStatus(program.getTrainer(),
+  public UpdateProgramDto.Response activate(ActivateProgramDto request) {
+    int activeProgramCount = programRepository.countByTrainerAndAndStatus(
+        EntityService.findById(memberRepository, request.trainerId()),
         ACTIVE);
     // TODO: 동시성 처리 필요
     if (activeProgramCount >= MAX_ACTIVE_PROGRAM_LIMIT) {
       throw new CustomException(MAX_ACTIVE_PROGRAM_LIMIT_EXCEEDED.getStatus(),
           MAX_ACTIVE_PROGRAM_LIMIT_EXCEEDED.getMessage());
     }
+
+    Program program = getProgramById(request.programId());
+
     return UpdateProgramDto.Response.fromEntity(program.activate());
   }
 
