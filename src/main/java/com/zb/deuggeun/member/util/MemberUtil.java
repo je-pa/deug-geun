@@ -7,6 +7,10 @@ import lombok.experimental.UtilityClass;
 public class MemberUtil {
 
   public static boolean isMatchLoginUser(Long memberId) {
-    return MySecurityUtil.getCustomUserDetails().getMemberId().equals(memberId);
+    Long loginUserId = MySecurityUtil.getCustomUserDetails().getMemberId();
+    if (loginUserId == null) {
+      return false;
+    }
+    return loginUserId.equals(memberId);
   }
 }
