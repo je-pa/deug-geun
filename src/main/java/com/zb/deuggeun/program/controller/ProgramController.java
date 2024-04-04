@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,7 +50,7 @@ public class ProgramController {
     return ResponseEntity.ok(programService.inactivate(programId));
   }
 
-  @PatchMapping("/delete")
+  @DeleteMapping("/delete")
   @PreAuthorize("hasRole('TRAINER')")
   public ResponseEntity<Boolean> delete(@RequestParam Long programId) {
     return ResponseEntity.ok(programService.delete(programId));
