@@ -1,0 +1,41 @@
+### 프로그램 생성
+POST http://localhost:8080/program
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyMDc1MjM5LCJleHAiOjE3MTIwNzg4Mzl9.6quoMalsoNWethjEGMe0x-bftvV2Bh3Vgwpi8ituueY
+
+{
+  "name": "수영1",
+  "description": "f",
+  "capacity": "2",
+  "location": "POINT(123.8, 123.0)"
+}
+
+### 프로그램 업데이트
+PUT http://localhost:8080/program
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyMDc1MjM5LCJleHAiOjE3MTIwNzg4Mzl9.6quoMalsoNWethjEGMe0x-bftvV2Bh3Vgwpi8ituueY
+
+{
+  "programId": "1",
+  "name": "수영11",
+  "description": "ff",
+  "capacity": "3",
+  "location": "POINT(323.4, 223.5)"
+}
+
+### 프로그램 활성화
+PATCH http://localhost:8080/program/activate?programId=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyMDc1MjM5LCJleHAiOjE3MTIwNzg4Mzl9.6quoMalsoNWethjEGMe0x-bftvV2Bh3Vgwpi8ituueY
+
+
+
+### 프로그램 비활성화
+PATCH http://localhost:8080/program/inactivate?programId=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyMDc1MjM5LCJleHAiOjE3MTIwNzg4Mzl9.6quoMalsoNWethjEGMe0x-bftvV2Bh3Vgwpi8ituueY
+
+### 프로그램 삭제
+DELETE http://localhost:8080/program/delete?programId=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyMDc1MjM5LCJleHAiOjE3MTIwNzg4Mzl9.6quoMalsoNWethjEGMe0x-bftvV2Bh3Vgwpi8ituueY
