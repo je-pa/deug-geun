@@ -22,16 +22,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
-@SuperBuilder
+@Builder
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class Program extends BaseEntity {
@@ -50,7 +49,6 @@ public class Program extends BaseEntity {
   private int capacity;
 
   @Column(nullable = false)
-  @Pattern(regexp = "^POINT\\((-?\\d+(?:\\.\\d+)?),\\s*(-?\\d+(?:\\.\\d+)?)\\)$", message = "올바른 위치 형식이 아닙니다.")
   private String location;
 
   @Column(nullable = false)

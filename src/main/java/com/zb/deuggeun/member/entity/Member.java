@@ -10,16 +10,14 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
-@SuperBuilder
+@Builder
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class Member extends BaseEntity {
@@ -33,7 +31,6 @@ public class Member extends BaseEntity {
 
   // 사용자 이메일
   @Column(nullable = false)
-  @Email
   private final String email;
 
   // 비밀번호
@@ -44,8 +41,6 @@ public class Member extends BaseEntity {
   private String profileImgUrl;
 
   // 전화번호
-  @Pattern(regexp = "^01[016789]-(?:\\d{3}|\\d{4})-\\d{4}$"
-      , message = "올바른 휴대폰 번호 형식이 아닙니다.")
   private String phoneNumber;
 
   // 권한
