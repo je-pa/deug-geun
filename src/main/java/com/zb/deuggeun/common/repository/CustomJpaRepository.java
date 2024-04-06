@@ -1,4 +1,4 @@
-package com.zb.deuggeun.common.service;
+package com.zb.deuggeun.common.repository;
 
 import static com.zb.deuggeun.common.exception.ExceptionCode.ENTITY_NOT_FOUND;
 
