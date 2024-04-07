@@ -96,7 +96,7 @@ public class Program extends BaseEntity {
     }
   }
 
-  private void validateTrainerMatchLoginUser() {
+  public void validateTrainerMatchLoginUser() {
     if (!MemberUtil.isMatchLoginUser(this.trainer.getId())) {
       throw new CustomException(LOGIN_USER_MISMATCH.getStatus(), LOGIN_USER_MISMATCH.getMessage());
     }
