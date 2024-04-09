@@ -27,10 +27,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
 @Entity
 @Getter
 @Builder
+@FilterDef(name = "deletedProgramFilter", parameters = @ParamDef(name = "deleted", type = Boolean.class))
+@Filter(name = "deletedProgramFilter", condition = "(status <> 'DELETED') = :deleted")
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class Program extends BaseEntity {
@@ -100,5 +105,9 @@ public class Program extends BaseEntity {
     if (!MemberUtil.isMatchLoginUser(this.trainer.getId())) {
       throw new CustomException(LOGIN_USER_MISMATCH.getStatus(), LOGIN_USER_MISMATCH.getMessage());
     }
+  }
+
+  public boolean isDeleted() {
+    return this.status == DELETED;
   }
 }

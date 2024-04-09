@@ -1,6 +1,10 @@
 package com.zb.deuggeun.programschedule.entity;
 
 import static com.zb.deuggeun.common.exception.ExceptionCode.IMMUTABLE_STATUS;
+import static com.zb.deuggeun.programschedule.type.ProgramDurationSlotStatus.ACTIVE;
+import static com.zb.deuggeun.programschedule.type.ProgramDurationSlotStatus.CREATED;
+import static com.zb.deuggeun.programschedule.type.ProgramDurationSlotStatus.DELETED;
+import static com.zb.deuggeun.programschedule.type.ProgramDurationSlotStatus.INACTIVE;
 
 import com.zb.deuggeun.common.entity.BaseEntity;
 import com.zb.deuggeun.common.exception.CustomException;
@@ -9,6 +13,8 @@ import com.zb.deuggeun.programschedule.dto.UpdateProgramDurationSlotDto.Request;
 import com.zb.deuggeun.programschedule.type.ProgramDurationSlotStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,10 +26,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
 @Entity
 @Getter
 @Builder
+@FilterDef(name = "deletedProgramDurationSlotFilter", parameters = @ParamDef(name = "deleted", type = Boolean.class))
+@Filter(name = "deletedProgramDurationSlotFilter", condition = "(status <> 'DELETED') = :deleted")
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class ProgramDurationSlot extends BaseEntity {
@@ -39,9 +50,9 @@ public class ProgramDurationSlot extends BaseEntity {
   private LocalDate endDate;
 
   @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
   private ProgramDurationSlotStatus status;
 
-  //  @Column(nullable = false)
   @ManyToOne(fetch = FetchType.LAZY)
   @ToString.Exclude
   private final Program program;
@@ -55,8 +66,28 @@ public class ProgramDurationSlot extends BaseEntity {
   }
 
   private void validateStatusIsCreated() {
-    if (this.status != ProgramDurationSlotStatus.CREATED) {
+    if (this.status != CREATED) {
       throw new CustomException(IMMUTABLE_STATUS.getStatus(), IMMUTABLE_STATUS.getMessage());
     }
+  }
+
+  public ProgramDurationSlot activate() {
+    program.validateTrainerMatchLoginUser();
+    status = ACTIVE;
+    return this;
+  }
+
+  public ProgramDurationSlot inactivate() {
+    program.validateTrainerMatchLoginUser();
+    status = INACTIVE;
+    return this;
+  }
+
+  public boolean delete() {
+    if (this.status == INACTIVE || this.status == CREATED) {
+      status = DELETED;
+      return status == DELETED;
+    }
+    throw new CustomException(IMMUTABLE_STATUS.getStatus(), IMMUTABLE_STATUS.getMessage());
   }
 }
