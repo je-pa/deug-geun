@@ -105,8 +105,4 @@ public class Program extends BaseEntity {
       throw new CustomException(LOGIN_USER_MISMATCH.getStatus(), LOGIN_USER_MISMATCH.getMessage());
     }
   }
-
-  public boolean isDeleted() {
-    return this.status == DELETED;
-  }
 }
