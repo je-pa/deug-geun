@@ -27,7 +27,7 @@ public class FilterAspect {
   private void isProgramDurationSlotServiceUpdate() {
   }
 
-  @Around("")
+  //  @Around("")
   public Object deletedProgramFilter(ProceedingJoinPoint joinPoint) throws Throwable {
     log.info("[Aspect][Filter][start]deletedProgramFilter:{}:{}",
         joinPoint.getSignature().getDeclaringTypeName(),
