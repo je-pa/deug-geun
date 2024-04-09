@@ -1,10 +1,12 @@
 package com.zb.deuggeun.programschedule.service;
 
+import static com.zb.deuggeun.common.exception.ExceptionCode.ENTITY_NOT_FOUND;
 import static com.zb.deuggeun.common.exception.ExceptionCode.PROGRAM_DURATION_CONFLICT;
 
 import com.zb.deuggeun.common.exception.CustomException;
 import com.zb.deuggeun.program.entity.Program;
 import com.zb.deuggeun.program.repository.ProgramRepository;
+import com.zb.deuggeun.program.type.ProgramStatus;
 import com.zb.deuggeun.programschedule.dto.CreateProgramDurationSlotDto;
 import com.zb.deuggeun.programschedule.dto.UpdateProgramDurationSlotDto;
 import com.zb.deuggeun.programschedule.entity.ProgramDurationSlot;
@@ -31,10 +33,12 @@ public class ProgramDurationSlotService {
    */
   public CreateProgramDurationSlotDto.Response create(
       CreateProgramDurationSlotDto.Request request) {
-    Program program = programRepository.findByIdWithThrow(request.programId());
+    Program program = programRepository.findByIdAndStatusNot(
+        request.programId(), ProgramStatus.DELETED).orElseThrow(
+        () -> new CustomException(ENTITY_NOT_FOUND.getStatus(), ENTITY_NOT_FOUND.getMessage()));
     program.validateTrainerMatchLoginUser();
 
-    validateDuration(request.programId(), request.startDate(), request.endDate());
+    this.validateDuration(request.programId(), request.startDate(), request.endDate());
 
     return CreateProgramDurationSlotDto.Response.fromEntity(
         durationSlotRepository.save(request.toEntity(program)));
@@ -54,7 +58,8 @@ public class ProgramDurationSlotService {
       UpdateProgramDurationSlotDto.Request request) {
     ProgramDurationSlot durationSlot = durationSlotRepository.findByIdWithThrow(
         request.durationId());
-    validateDuration(durationSlot.getId(), durationSlot.getProgram().getId(), request.startDate(),
+    this.validateDuration(durationSlot.getId(), durationSlot.getProgram().getId(),
+        request.startDate(),
         request.endDate());
 
     return UpdateProgramDurationSlotDto.Response.fromEntity(durationSlot.update(request));
@@ -71,5 +76,23 @@ public class ProgramDurationSlotService {
       throw new CustomException(PROGRAM_DURATION_CONFLICT.getStatus(),
           PROGRAM_DURATION_CONFLICT.getMessage());
     }
+  }
+
+  @Transactional
+  public UpdateProgramDurationSlotDto.Response activate(Long durationSlotId) {
+    return UpdateProgramDurationSlotDto.Response.fromEntity(
+        durationSlotRepository.findByIdWithThrow(durationSlotId).activate());
+  }
+
+  @Transactional
+  public UpdateProgramDurationSlotDto.Response inactivate(Long durationSlotId) {
+    // TODO: REQUESTED, APPROVED 상태인 예약이 있는지 확인 필요
+    return UpdateProgramDurationSlotDto.Response.fromEntity(
+        durationSlotRepository.findByIdWithThrow(durationSlotId).inactivate());
+  }
+
+  @Transactional
+  public boolean delete(Long durationSlotId) {
+    return durationSlotRepository.findByIdWithThrow(durationSlotId).delete();
   }
 }
