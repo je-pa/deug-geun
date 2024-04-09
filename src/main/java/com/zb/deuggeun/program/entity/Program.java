@@ -86,11 +86,10 @@ public class Program extends BaseEntity {
     return this;
   }
 
-  public boolean delete() {
+  public void delete() {
     validateTrainerMatchLoginUser();
     if (this.status == INACTIVE || this.status == CREATED) {
       status = DELETED;
-      return status == DELETED;
     }
     throw new CustomException(IMMUTABLE_STATUS.getStatus(), IMMUTABLE_STATUS.getMessage());
   }

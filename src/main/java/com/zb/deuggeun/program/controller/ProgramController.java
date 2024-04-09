@@ -54,7 +54,8 @@ public class ProgramController {
 
   @DeleteMapping("/delete")
   @PreAuthorize("hasRole('TRAINER')")
-  public ResponseEntity<Boolean> delete(@RequestParam Long programId) {
-    return ResponseEntity.ok(programService.delete(programId));
+  public ResponseEntity<Long> delete(@RequestParam Long programId) {
+    programService.delete(programId);
+    return ResponseEntity.ok(programId);
   }
 }

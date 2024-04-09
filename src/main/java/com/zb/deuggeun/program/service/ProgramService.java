@@ -60,9 +60,9 @@ public class ProgramService {
   }
 
   @Transactional
-  public boolean delete(Long programId) {
+  public void delete(Long programId) {
     Program program = getProgramById(programId);
-    return program.delete();
+    program.delete();
   }
 
   private Program getProgramById(Long programId) {
