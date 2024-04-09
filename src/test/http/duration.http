@@ -1,0 +1,32 @@
+### 일정 생성
+POST http://localhost:8080/program-duration-slots
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyNTk3NDAwLCJleHAiOjE3MTI2MDEwMDB9.nCuJvOJW-XSLbkEsYVxCE9farYiMTD4e18WVV2xhHzs
+
+{
+  "startDate": "2024-03-10",
+  "endDate": "2024-03-20",
+  "programId": "1"
+}
+
+### 일정 생성 - dateOrder exception
+POST http://localhost:8080/program-duration-slots
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyNTk3NDAwLCJleHAiOjE3MTI2MDEwMDB9.nCuJvOJW-XSLbkEsYVxCE9farYiMTD4e18WVV2xhHzs
+
+{
+  "startDate": "2024-03-30",
+  "endDate": "2024-03-20",
+  "programId": "1"
+}
+
+### 일정 수정
+PUT http://localhost:8080/program-duration-slots
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyNTk3NDAwLCJleHAiOjE3MTI2MDEwMDB9.nCuJvOJW-XSLbkEsYVxCE9farYiMTD4e18WVV2xhHzs
+
+{
+  "durationId": "2",
+  "startDate": "2024-03-10",
+  "endDate": "2024-03-22"
+}
