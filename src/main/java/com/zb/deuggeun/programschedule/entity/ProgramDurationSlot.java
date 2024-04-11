@@ -26,15 +26,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Getter
 @Builder
-@FilterDef(name = "deletedProgramDurationSlotFilter", parameters = @ParamDef(name = "deleted", type = Boolean.class))
-@Filter(name = "deletedProgramDurationSlotFilter", condition = "(status <> 'DELETED') = :deleted")
+@SQLRestriction("status <> 'DELETED'")
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class ProgramDurationSlot extends BaseEntity {
