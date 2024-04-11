@@ -38,7 +38,7 @@ public class ProgramService {
 
   @Transactional
   public UpdateProgramDto.Response activate(Long programId) {
-    int activeProgramCount = programRepository.countByTrainerAndAndStatus(
+    int activeProgramCount = programRepository.countByTrainerAndStatus(
         memberRepository.findByIdWithThrow(MySecurityUtil.getCustomUserDetails().getMemberId()),
         ACTIVE);
     // TODO: 동시성 처리 필요

@@ -75,7 +75,7 @@ class ProgramRepositoryTest {
     Program program = programRepository.findByIdWithThrow(Long.valueOf(1));
     Member member = program.getTrainer();
     //필터 적용됨
-    int count = programRepository.countByTrainerAndAndStatus(member, DELETED);
+    int count = programRepository.countByTrainerAndStatus(member, DELETED);
     filterManager.disableFilter("deletedProgramFilter");
     assertEquals(1, program.getId());
     assertEquals(0, count);
