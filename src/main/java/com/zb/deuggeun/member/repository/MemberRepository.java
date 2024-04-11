@@ -1,6 +1,6 @@
 package com.zb.deuggeun.member.repository;
 
-import com.zb.deuggeun.common.service.CustomJpaRepository;
+import com.zb.deuggeun.common.repository.CustomJpaRepository;
 import com.zb.deuggeun.member.entity.Member;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;

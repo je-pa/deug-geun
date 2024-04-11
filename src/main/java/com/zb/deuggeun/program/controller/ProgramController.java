@@ -23,14 +23,14 @@ public class ProgramController {
 
   private final ProgramService programService;
 
-  @PostMapping("")
+  @PostMapping
   @PreAuthorize("hasRole('TRAINER')")
   public ResponseEntity<CreateProgramDto.Response> create(
       @Valid @RequestBody CreateProgramDto.Request request) {
     return ResponseEntity.ok(programService.create(request));
   }
 
-  @PutMapping("")
+  @PutMapping
   @PreAuthorize("hasRole('TRAINER')")
   public ResponseEntity<UpdateProgramDto.Response> update(
       @Valid @RequestBody UpdateProgramDto.Request request
@@ -54,7 +54,8 @@ public class ProgramController {
 
   @DeleteMapping("/delete")
   @PreAuthorize("hasRole('TRAINER')")
-  public ResponseEntity<Boolean> delete(@RequestParam Long programId) {
-    return ResponseEntity.ok(programService.delete(programId));
+  public ResponseEntity<Long> delete(@RequestParam Long programId) {
+    programService.delete(programId);
+    return ResponseEntity.ok(programId);
   }
 }

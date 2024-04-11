@@ -1,4 +1,4 @@
-### 회원가입
+### 회원가입 - 트레이너
 POST http://localhost:8080/auth/signup
 Content-Type: application/json
 
@@ -9,7 +9,7 @@ Content-Type: application/json
   "role": "ROLE_TRAINER"
 }
 
-### 로그인
+### 로그인 - 트레이너
 POST http://localhost:8080/auth/signin
 Content-Type: application/json
 

@@ -20,7 +20,7 @@ public class CustomUserDetails implements UserDetails {
   }
 
   public Long getMemberId() {
-    return member.getId();
+    return details.id();
   }
 
   @Override
