@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProgramRepository extends CustomJpaRepository<Program, Long> {
 
-  int countByTrainerAndAndStatus(Member trainer, ProgramStatus status);
+  int countByTrainerAndStatus(Member trainer, ProgramStatus status);
 
   Optional<Program> findByIdAndStatusNot(Long id, ProgramStatus status);
 }
