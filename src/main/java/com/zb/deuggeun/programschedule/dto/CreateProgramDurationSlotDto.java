@@ -1,6 +1,6 @@
 package com.zb.deuggeun.programschedule.dto;
 
-import com.zb.deuggeun.common.validation.DateOrderValidatable;
+import com.zb.deuggeun.common.validation.type.DateOrderValidatable;
 import com.zb.deuggeun.common.validation.anotaion.DateOrder;
 import com.zb.deuggeun.program.entity.Program;
 import com.zb.deuggeun.programschedule.entity.ProgramDurationSlot;

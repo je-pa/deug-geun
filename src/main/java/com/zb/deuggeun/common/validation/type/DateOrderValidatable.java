@@ -1,4 +1,4 @@
-package com.zb.deuggeun.common.validation;
+package com.zb.deuggeun.common.validation.type;
 
 import java.time.LocalDate;
 

@@ -1,6 +1,6 @@
 package com.zb.deuggeun.common.validation.validator;
 
-import com.zb.deuggeun.common.validation.DateOrderValidatable;
+import com.zb.deuggeun.common.validation.type.DateOrderValidatable;
 import com.zb.deuggeun.common.validation.anotaion.DateOrder;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
