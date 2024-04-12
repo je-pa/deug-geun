@@ -7,4 +7,8 @@ public interface DateOrderValidatable {
   LocalDate getStartDate();
 
   LocalDate getEndDate();
+
+  default boolean isValidOrder() {
+    return getStartDate().isBefore(getEndDate());
+  }
 }

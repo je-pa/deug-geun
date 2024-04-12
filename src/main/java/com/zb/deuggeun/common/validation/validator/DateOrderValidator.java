@@ -12,6 +12,6 @@ public class DateOrderValidator implements ConstraintValidator<DateOrder, DateOr
     if (validatable == null) {
       return true;
     }
-    return validatable.getStartDate().isBefore(validatable.getEndDate());
+    return validatable.isValidOrder();
   }
 }
