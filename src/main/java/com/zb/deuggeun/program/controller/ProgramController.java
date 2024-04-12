@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,9 +53,9 @@ public class ProgramController {
     return ResponseEntity.ok(programService.inactivate(programId));
   }
 
-  @DeleteMapping("/delete")
+  @DeleteMapping("{programId}")
   @PreAuthorize("hasRole('TRAINER')")
-  public ResponseEntity<Long> delete(@RequestParam Long programId) {
+  public ResponseEntity<Long> delete(@PathVariable Long programId) {
     programService.delete(programId);
     return ResponseEntity.ok(programId);
   }
