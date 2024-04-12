@@ -16,9 +16,9 @@ public interface ProgramDurationSlotRepository
   default boolean existsOverlappingDuration(
       Long durationId, Long programId, LocalDate startDate, LocalDate endDate) {
     if (durationId == null) {
-      return this.exists(createOverlapExpression(programId, endDate, startDate));
+      return this.exists(createOverlapExpression(programId, startDate, endDate));
     }
-    return this.exists(createOverlapExpression(durationId, programId, endDate, startDate));
+    return this.exists(createOverlapExpression(durationId, programId, startDate, endDate));
   }
 
   /**
@@ -26,12 +26,12 @@ public interface ProgramDurationSlotRepository
    *
    * @param durationId 조회에서 제외할 기간 ID
    * @param programId  프로그램 ID
-   * @param endDate    종료일
    * @param startDate  시작일
+   * @param endDate    종료일
    * @return 겹치는 기간을 확인하는 BooleanExpression
    */
   private static BooleanExpression createOverlapExpression(
-      Long durationId, Long programId, LocalDate endDate, LocalDate startDate) {
+      Long durationId, Long programId, LocalDate startDate, LocalDate endDate) {
     return QProgramDurationSlot.programDurationSlot.program.id.eq(programId)
         .and(QProgramDurationSlot.programDurationSlot.startDate.before(endDate)
             .or(QProgramDurationSlot.programDurationSlot.startDate.eq(endDate)))
@@ -44,12 +44,12 @@ public interface ProgramDurationSlotRepository
    * 겹치는 기간을 확인하기 위한 BooleanExpression 생성
    *
    * @param programId 프로그램 ID
-   * @param endDate   종료일
    * @param startDate 시작일
+   * @param endDate   종료일
    * @return 겹치는 기간을 확인하는 BooleanExpression
    */
   private static BooleanExpression createOverlapExpression(
-      Long programId, LocalDate endDate, LocalDate startDate) {
+      Long programId, LocalDate startDate, LocalDate endDate) {
     return QProgramDurationSlot.programDurationSlot.program.id.eq(programId)
         .and(QProgramDurationSlot.programDurationSlot.startDate.before(endDate)
             .or(QProgramDurationSlot.programDurationSlot.startDate.eq(endDate)))
