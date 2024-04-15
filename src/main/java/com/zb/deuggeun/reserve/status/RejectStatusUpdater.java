@@ -12,7 +12,6 @@ import lombok.Getter;
 
 public class RejectStatusUpdater extends ReservationStatusUpdater {
 
-  @Getter
   private static final ReservationStatus newStatus = REJECTED;
   @Getter
   private final List<ReservationStatus> availableStatus = Arrays.asList(CREATED, APPROVED);
@@ -29,5 +28,10 @@ public class RejectStatusUpdater extends ReservationStatusUpdater {
   @Override
   boolean isAvailableUser() {
     return isLoggedInUserTrainer();
+  }
+
+  @Override
+  ReservationStatus getNewStatus() {
+    return newStatus;
   }
 }

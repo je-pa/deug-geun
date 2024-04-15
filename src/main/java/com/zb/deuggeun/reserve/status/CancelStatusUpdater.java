@@ -12,7 +12,6 @@ import lombok.Getter;
 
 public class CancelStatusUpdater extends ReservationStatusUpdater {
 
-  @Getter
   private static final ReservationStatus newStatus = CANCELED;
   @Getter
   private final List<ReservationStatus> availableStatus = Arrays.asList(CREATED);
@@ -32,5 +31,10 @@ public class CancelStatusUpdater extends ReservationStatusUpdater {
   @Override
   protected boolean isAvailableUser() {
     return isLoggedInUserTrainer();
+  }
+
+  @Override
+  ReservationStatus getNewStatus() {
+    return newStatus;
   }
 }
