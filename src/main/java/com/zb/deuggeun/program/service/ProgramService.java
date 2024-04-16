@@ -37,6 +37,7 @@ public class ProgramService {
   }
 
   @Transactional
+  @ProgramLock
   public UpdateProgramDto.Response activate(Long programId) {
     int activeProgramCount = programRepository.countByTrainerAndStatus(
         memberRepository.findByIdWithThrow(MySecurityUtil.getCustomUserDetails().getMemberId()),
@@ -53,6 +54,7 @@ public class ProgramService {
   }
 
   @Transactional
+  @ProgramLock
   public UpdateProgramDto.Response inactivate(Long programId) {
     Program program = getProgramById(programId);
     // TODO: 설정한 해당 program의 program slot이 모두 기간 종료 또는 비활성화 상태인지 확인
