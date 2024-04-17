@@ -1,7 +1,7 @@
 ### 프로그램 생성
 POST http://localhost:8080/program
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyMDc1MjM5LCJleHAiOjE3MTIwNzg4Mzl9.6quoMalsoNWethjEGMe0x-bftvV2Bh3Vgwpi8ituueY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEzMjc5NDUzLCJleHAiOjE3MTMyODMwNTN9.RAciXHT4FGXxpID_xz7c552Qgdm8aaByK9W58XTQVWY
 
 {
   "name": "수영1",
@@ -13,7 +13,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlc
 ### 프로그램 업데이트
 PUT http://localhost:8080/program
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyMDc1MjM5LCJleHAiOjE3MTIwNzg4Mzl9.6quoMalsoNWethjEGMe0x-bftvV2Bh3Vgwpi8ituueY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEzMTk1ODEwLCJleHAiOjE3MTMxOTk0MTB9.Kfb4r2xOrIWWfYQBPR6X2uqdbeY58-CcpQCZUKZDllM
 
 {
   "programId": "1",
