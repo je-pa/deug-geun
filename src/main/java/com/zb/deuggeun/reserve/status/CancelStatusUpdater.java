@@ -15,7 +15,6 @@ public class CancelStatusUpdater extends ReservationStatusUpdater {
   private static final ReservationStatus newStatus = CANCELED;
   @Getter
   private final List<ReservationStatus> availableStatus = Arrays.asList(CREATED);
-  private static final Long LIMIT_TIME_MINUTES = -10L;
 
 
   public CancelStatusUpdater(Reservation reservation) {
@@ -24,13 +23,12 @@ public class CancelStatusUpdater extends ReservationStatusUpdater {
 
   @Override
   protected boolean isAvailableTime() {
-    return LocalTime.now()
-        .isBefore(getReservation().getTimeSlot().getStartTime().plusMinutes(LIMIT_TIME_MINUTES));
+    return true;
   }
 
   @Override
   protected boolean isAvailableUser() {
-    return isLoggedInUserTrainer();
+    return isLoggedInUserReserver();
   }
 
   @Override

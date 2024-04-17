@@ -18,7 +18,6 @@ public class CreateStatusUpdater extends ReservationStatusUpdater {
 
   public CreateStatusUpdater(Reservation reservation) {
     super(reservation);
-    availableStatus.add(null);
   }
 
   @Override
