@@ -1,0 +1,47 @@
+###
+POST http://localhost:8080/program-time-slots
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyOTE2NjA3LCJleHAiOjE3MTI5MjAyMDd9.1a2TP2QRfYGk2bweaDj5zqv1W5a8STxvQj1gfVKn84c
+
+{
+  "durationId": 2,
+  "timeSlotDtoList": [
+    {
+      "startTime": "08:00",
+      "endTime": "10:00"
+    },
+    {
+      "startTime": "12:00",
+      "endTime": "14:00"
+    }
+  ]
+}
+
+
+###
+PUT http://localhost:8080/program-time-slots
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyOTE2NjA3LCJleHAiOjE3MTI5MjAyMDd9.1a2TP2QRfYGk2bweaDj5zqv1W5a8STxvQj1gfVKn84c
+
+{
+  "durationId": 2,
+  "timeSlotDtoList": [
+    {
+      "timeSlotId": 1,
+      "startTime": "09:00",
+      "endTime": "11:00"
+    },
+    {
+      "timeSlotId": 2,
+      "startTime": "11:00",
+      "endTime": "15:00"
+    }
+  ]
+}
+
+###
+DELETE http://localhost:8080/program-time-slots/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyOTE2NjA3LCJleHAiOjE3MTI5MjAyMDd9.1a2TP2QRfYGk2bweaDj5zqv1W5a8STxvQj1gfVKn84c
+
+

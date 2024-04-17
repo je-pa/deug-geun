@@ -25,8 +25,10 @@ public enum ExceptionCode {
 
   // Conflict
   LOGIN_USER_MISMATCH(CONFLICT, "로그인 유저가 일치하지 않습니다."),
+  DURATION_MISMATCH(CONFLICT, "기간이 일치하지 않습니다."),
   USER_ID_CONFLICT(CONFLICT, "이미 존재하는 사용자 아이디입니다."),
-  PROGRAM_DURATION_CONFLICT(CONFLICT, "중복되는 기간입니다.");
+  PROGRAM_DURATION_CONFLICT(CONFLICT, "중복되는 기간입니다."),
+  PROGRAM_TIME_CONFLICT(CONFLICT, "중복되는 시간입니다.");
 
 
   private final HttpStatus status;

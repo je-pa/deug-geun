@@ -11,6 +11,7 @@ import com.zb.deuggeun.programschedule.dto.CreateProgramDurationSlotDto;
 import com.zb.deuggeun.programschedule.dto.UpdateProgramDurationSlotDto;
 import com.zb.deuggeun.programschedule.entity.ProgramDurationSlot;
 import com.zb.deuggeun.programschedule.repository.ProgramDurationSlotRepository;
+import com.zb.deuggeun.programschedule.repository.ProgramTimeSlotRepository;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ProgramDurationSlotService {
 
-  private final ProgramDurationSlotRepository durationSlotRepository;
   private final ProgramRepository programRepository;
+  private final ProgramDurationSlotRepository durationSlotRepository;
+  private final ProgramTimeSlotRepository timeSlotRepository;
 
   /**
    * 일정을 추가하는 서비스
@@ -92,7 +94,10 @@ public class ProgramDurationSlotService {
   }
 
   @Transactional
-  public boolean delete(Long durationSlotId) {
-    return durationSlotRepository.findByIdWithThrow(durationSlotId).delete();
+  public Long delete(Long durationSlotId) {
+    ProgramDurationSlot durationSlot = durationSlotRepository.findByIdWithThrow(durationSlotId);
+    timeSlotRepository.deleteAllByDurationSlot(durationSlot);
+    durationSlot.delete();
+    return durationSlotId;
   }
 }
