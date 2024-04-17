@@ -42,8 +42,7 @@ public class ReservationService {
   @Transactional
   public CreateReservationDto.Response create(CreateReservationDto.Request request) {
     ProgramTimeSlot timeSlot = timeSlotRepository.findByIdWithThrow(request.timeSlotId());
-    Member member = memberRepository.findByIdWithThrow(
-        MySecurityUtil.getCustomUserDetails().getMemberId());
+    Member member = getCurrentMember();
 
     // 기간안에 포함되는 날짜인지 확인
     validateReservationDateInProgramDurationSlot(
@@ -113,15 +112,25 @@ public class ReservationService {
   }
 
   @Transactional(readOnly = true)
-  public Page<ReservationByTrainerResponseDto> readListByTrainer(Pageable pageable,
-      LocalDate startDate, LocalDate endDate) {
-    return null;
+  public Page<ReservationByTrainerResponseDto> readListByTrainer(
+      Pageable pageable, LocalDate startDate, LocalDate endDate) {
+
+    return reservationRepository.findByTrainerAndReserveDateIsBetween(
+            getCurrentMember(), startDate, endDate, pageable)
+        .map(ReservationByTrainerResponseDto::fromEntity);
   }
 
   @Transactional(readOnly = true)
-  public Page<ReservationByReserverResponseDto> readListByMember(Pageable pageable,
-      LocalDate startDate, LocalDate endDate) {
-    return null;
+  public Page<ReservationByReserverResponseDto> readListByMember(
+      Pageable pageable, LocalDate startDate, LocalDate endDate) {
+    return reservationRepository.findByReserverAndReserveDateIsBetween(
+            getCurrentMember(), startDate, endDate, pageable)
+        .map(ReservationByReserverResponseDto::fromEntity);
+  }
+
+  private Member getCurrentMember() {
+    return memberRepository.getReferenceById(
+        MySecurityUtil.getCustomUserDetails().getMemberId());
   }
 
   @Transactional
