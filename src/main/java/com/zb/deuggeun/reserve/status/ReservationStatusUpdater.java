@@ -7,6 +7,7 @@ import static com.zb.deuggeun.common.exception.ExceptionCode.RESERVATION_STATUS_
 import com.zb.deuggeun.common.exception.CustomException;
 import com.zb.deuggeun.reserve.entity.Reservation;
 import com.zb.deuggeun.reserve.type.ReservationStatus;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -85,5 +86,15 @@ public abstract class ReservationStatusUpdater {
 
   protected Reservation getReservation() {
     return this.reservation;
+  }
+
+  protected LocalDateTime getReservationStartDateTime() {
+    return LocalDateTime.of(this.reservation.getReserveDate()
+        , this.reservation.getTimeSlot().getStartTime());
+  }
+
+  protected LocalDateTime getReservationEndDateTime() {
+    return LocalDateTime.of(this.reservation.getReserveDate()
+        , this.reservation.getTimeSlot().getEndTime());
   }
 }

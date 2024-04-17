@@ -5,6 +5,7 @@ import static com.zb.deuggeun.reserve.type.ReservationStatus.CREATED;
 
 import com.zb.deuggeun.reserve.entity.Reservation;
 import com.zb.deuggeun.reserve.type.ReservationStatus;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
@@ -24,8 +25,8 @@ public class ApproveStatusUpdater extends ReservationStatusUpdater {
 
   @Override
   protected boolean isAvailableTime() {
-    return LocalTime.now()
-        .isBefore(getReservation().getTimeSlot().getStartTime().plusMinutes(LIMIT_TIME_MINUTES));
+    return LocalDateTime.now().isBefore(
+        getReservationStartDateTime().plusMinutes(LIMIT_TIME_MINUTES));
   }
 
   @Override

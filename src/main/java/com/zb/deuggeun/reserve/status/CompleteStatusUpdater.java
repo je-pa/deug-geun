@@ -5,7 +5,7 @@ import static com.zb.deuggeun.reserve.type.ReservationStatus.COMPLETED;
 
 import com.zb.deuggeun.reserve.entity.Reservation;
 import com.zb.deuggeun.reserve.type.ReservationStatus;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class CompleteStatusUpdater extends ReservationStatusUpdater {
 
   @Override
   boolean isAvailableTime() {
-    return LocalTime.now().isAfter(getReservation().getTimeSlot().getEndTime());
+    return LocalDateTime.now().isAfter(getReservationEndDateTime());
   }
 
   @Override
