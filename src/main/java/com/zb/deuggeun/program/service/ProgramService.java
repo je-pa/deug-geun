@@ -8,9 +8,11 @@ import com.zb.deuggeun.member.repository.MemberRepository;
 import com.zb.deuggeun.program.dto.CreateProgramDto;
 import com.zb.deuggeun.program.dto.UpdateProgramDto;
 import com.zb.deuggeun.program.entity.Program;
+import com.zb.deuggeun.program.lock.ProgramLock;
 import com.zb.deuggeun.program.repository.ProgramRepository;
 import com.zb.deuggeun.security.util.MySecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ProgramService {
 
-  private static final int MAX_ACTIVE_PROGRAM_LIMIT = 3;
+  @Value("${spring.program.max-active-program-limit}")
+  private int maxActiveProgramLimit;
   private final ProgramRepository programRepository;
   private final MemberRepository memberRepository;
 
@@ -42,8 +45,7 @@ public class ProgramService {
     int activeProgramCount = programRepository.countByTrainerAndStatus(
         memberRepository.findByIdWithThrow(MySecurityUtil.getCustomUserDetails().getMemberId()),
         ACTIVE);
-    // TODO: 동시성 처리 필요
-    if (activeProgramCount >= MAX_ACTIVE_PROGRAM_LIMIT) {
+    if (activeProgramCount >= maxActiveProgramLimit) {
       throw new CustomException(MAX_ACTIVE_PROGRAM_LIMIT_EXCEEDED.getStatus(),
           MAX_ACTIVE_PROGRAM_LIMIT_EXCEEDED.getMessage());
     }
