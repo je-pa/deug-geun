@@ -16,7 +16,7 @@ public class CreateStatusUpdater extends ReservationStatusUpdater {
   private static final ReservationStatus newStatus = CREATED;
   @Getter
   private final List<ReservationStatus> availableStatus = Arrays.asList(CREATED);
-  private static final Long LIMIT_TIME_MINUTES = -10L;
+  private static final Long LIMIT_TIME_MINUTES = 10L;
 
   public CreateStatusUpdater(Reservation reservation) {
     super(reservation);
@@ -25,7 +25,7 @@ public class CreateStatusUpdater extends ReservationStatusUpdater {
   @Override
   boolean isAvailableTime() {
     return LocalDateTime.now().isBefore(
-        getReservationStartDateTime().plusMinutes(LIMIT_TIME_MINUTES));
+        getReservationStartDateTime().minusMinutes(LIMIT_TIME_MINUTES));
   }
 
   @Override
