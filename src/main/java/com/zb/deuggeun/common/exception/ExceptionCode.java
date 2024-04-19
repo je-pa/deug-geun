@@ -19,6 +19,7 @@ public enum ExceptionCode {
   IMMUTABLE_STATUS(BAD_REQUEST, "수정 가능한 상태가 아닙니다."),
   MAX_ACTIVE_PROGRAM_LIMIT_EXCEEDED(BAD_REQUEST, "활성화 프로그램의 최대 개수를 초과했습니다."),
   DATE_NOT_WITHIN_DURATION(BAD_REQUEST, "날짜가 기간에 포함되어야 합니다. "),
+
   // Unauthorized
   AUTHENTICATION_ISSUE(UNAUTHORIZED, "인증 이슈가 있습니다."),
   TOKEN_EXPIRED(UNAUTHORIZED, "토큰이 만료되었습니다."),
@@ -36,7 +37,9 @@ public enum ExceptionCode {
   PROGRAM_DURATION_CONFLICT(CONFLICT, "중복되는 기간입니다."),
   PROGRAM_TIME_CONFLICT(CONFLICT, "중복되는 시간입니다."),
   LOCK_ACQUISITION_EXCEPTION(CONFLICT, "락 획득을 실패했습니다."),
+  DURATION_SLOT_IN_ACTIVATE(CONFLICT, "활성화된 기간 슬롯이 있어 해당 작업을 진행할 수 없습니다."),
   RESERVATION_DATETIME_CONFLICT(CONFLICT, "다른 예약의 날짜와 시간이 겹칩니다."),
+  RESERVATION_IN_PROGRESS(CONFLICT, "진행 중인 예약이 있어 해당 작업을 진행할 수 없습니다."),
   RESERVATION_FULL(CONFLICT, "예약 가능한 자리가 없습니다.");
 
 
