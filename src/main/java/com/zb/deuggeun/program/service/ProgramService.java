@@ -8,7 +8,7 @@ import com.zb.deuggeun.member.repository.MemberRepository;
 import com.zb.deuggeun.program.dto.CreateProgramDto;
 import com.zb.deuggeun.program.dto.UpdateProgramDto;
 import com.zb.deuggeun.program.entity.Program;
-import com.zb.deuggeun.program.lock.ProgramLock;
+import com.zb.deuggeun.common.aop.ProgramActiveLock;
 import com.zb.deuggeun.program.repository.ProgramRepository;
 import com.zb.deuggeun.security.util.MySecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class ProgramService {
   }
 
   @Transactional
-  @ProgramLock
+  @ProgramActiveLock
   public UpdateProgramDto.Response activate(Long programId) {
     int activeProgramCount = programRepository.countByTrainerAndStatus(
         memberRepository.findByIdWithThrow(MySecurityUtil.getCustomUserDetails().getMemberId()),
@@ -56,7 +56,7 @@ public class ProgramService {
   }
 
   @Transactional
-  @ProgramLock
+  @ProgramActiveLock
   public UpdateProgramDto.Response inactivate(Long programId) {
     Program program = getProgramById(programId);
     // TODO: 설정한 해당 program의 program slot이 모두 기간 종료 또는 비활성화 상태인지 확인
