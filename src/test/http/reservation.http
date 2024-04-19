@@ -1,4 +1,4 @@
-### 예약하기
+### 예약하기 - 멤버
 POST http://localhost:8080/reservation
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX01FTUJFUiJdLCJpYXQiOjE3MTMzNTMwMTksImV4cCI6MTcxMzM1NjYxOX0.x-Mi8K2dGjeSqe1KhfRTgeFbucZz-WAjs2KUvQCYX5Q
@@ -9,7 +9,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtMUBnbWFpbC5jb20iLCJyb2xlc
   "timeSlotId": 2
 }
 
-### 취소하기
+### 조회 - 트레이너
+GET http://localhost:8080/reservation/trainer?page=0&size=5&sort=id&startDate=2025-03-01&
+    endDate=2025-03-30
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEzMzc1MzI3LCJleHAiOjE3MTMzNzg5Mjd9.6rIb4TeQ5Ffa-4NbEAwJT6__RuRfb97dKFlnEGEfHW0
+
+
+### 조회 - 멤버
+GET http://localhost:8080/reservation/member?page=0&size=5&sort=id&startDate=2025-03-01&
+    endDate=2025-03-30
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX01FTUJFUiJdLCJpYXQiOjE3MTMzNzQ0NDgsImV4cCI6MTcxMzM3ODA0OH0.kw-dKJYA66KAuvGCDf5bqaMUKbx1bQhbmB5WOwar-1o
+
+### 취소하기 - 멤버
 PUT http://localhost:8080/reservation/29/cancel
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX01FTUJFUiJdLCJpYXQiOjE3MTMzNTMwMTksImV4cCI6MTcxMzM1NjYxOX0.x-Mi8K2dGjeSqe1KhfRTgeFbucZz-WAjs2KUvQCYX5Q
