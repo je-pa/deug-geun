@@ -1,4 +1,4 @@
-package com.zb.deuggeun.program.lock;
+package com.zb.deuggeun.common.aop;
 
 
 import static com.zb.deuggeun.common.exception.ExceptionCode.LOCK_ACQUISITION_EXCEPTION;
@@ -20,14 +20,27 @@ import org.springframework.stereotype.Component;
 public class LockAopAspect {
 
   private final RedissonClient redissonClient;
-  private static final String PREFIX = "ProgramActivate::";
+  private static final String PROGRAM_ACTIVE_PREFIX = "ProgramActivate::";
+  private static final String RESERVATION_PREFIX = "Reservation::";
 
-  @Around("@annotation(com.zb.deuggeun.program.lock.ProgramLock)")
-  public Object aroundMethod(
+  @Around("@annotation(com.zb.deuggeun.common.aop.ProgramActiveLock)")
+  public Object aroundMethodWithProgramActiveLock(
       ProceedingJoinPoint pjp
   ) throws Throwable {
-    RLock lock = redissonClient.getLock(
-        PREFIX + MySecurityUtil.getCustomUserDetails().getMemberId());
+    return doLock(pjp, redissonClient.getLock(
+        PROGRAM_ACTIVE_PREFIX + MySecurityUtil.getCustomUserDetails().getMemberId()));
+  }
+
+  @Around("@annotation(com.zb.deuggeun.common.aop.ProgramActiveLock) && args(request)")
+  public Object aroundMethodWithReservationLock(
+      ProceedingJoinPoint pjp,
+      TimeSlotLockIdInterface request
+  ) throws Throwable {
+    return doLock(pjp, redissonClient.getLock(
+        RESERVATION_PREFIX + request.getTimeSlotId()));
+  }
+
+  private static Object doLock(ProceedingJoinPoint pjp, RLock lock) throws Throwable {
     try {
       boolean available = lock.tryLock(10, 1, TimeUnit.SECONDS);
 

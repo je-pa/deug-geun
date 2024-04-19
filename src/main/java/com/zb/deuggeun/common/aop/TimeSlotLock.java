@@ -1,4 +1,4 @@
-package com.zb.deuggeun.program.lock;
+package com.zb.deuggeun.common.aop;
 
 import static java.lang.annotation.ElementType.METHOD;
 
@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
 @Inherited
 @Target(METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ProgramLock {
+public @interface TimeSlotLock {
 
 }
-

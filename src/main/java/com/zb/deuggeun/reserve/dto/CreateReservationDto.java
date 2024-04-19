@@ -2,6 +2,7 @@ package com.zb.deuggeun.reserve.dto;
 
 import static com.zb.deuggeun.reserve.type.ReservationStatus.CREATED;
 
+import com.zb.deuggeun.common.aop.TimeSlotLockIdInterface;
 import com.zb.deuggeun.member.entity.Member;
 import com.zb.deuggeun.programschedule.entity.ProgramTimeSlot;
 import com.zb.deuggeun.reserve.entity.Reservation;
@@ -21,7 +22,7 @@ public record CreateReservationDto() {
 
       @NotNull
       Long timeSlotId
-  ) {
+  ) implements TimeSlotLockIdInterface {
 
     public Reservation toEntity(Member member, ProgramTimeSlot timeSlot) {
       return Reservation.builder()
@@ -32,6 +33,11 @@ public record CreateReservationDto() {
           .timeSlot(timeSlot)
           .program(timeSlot.getDurationSlot().getProgram())
           .build();
+    }
+
+    @Override
+    public String getTimeSlotId() {
+      return String.valueOf(this.timeSlotId);
     }
   }
 

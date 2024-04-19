@@ -4,6 +4,7 @@ import static com.zb.deuggeun.common.exception.ExceptionCode.DATE_NOT_WITHIN_DUR
 import static com.zb.deuggeun.common.exception.ExceptionCode.RESERVATION_DATETIME_CONFLICT;
 import static com.zb.deuggeun.common.exception.ExceptionCode.RESERVATION_FULL;
 
+import com.zb.deuggeun.common.aop.TimeSlotLock;
 import com.zb.deuggeun.common.exception.CustomException;
 import com.zb.deuggeun.common.redis.RedisService;
 import com.zb.deuggeun.member.entity.Member;
@@ -40,6 +41,7 @@ public class ReservationService {
   private static final String REMAIN_RESERVATION_COUNT_PREFIX = "reserve-remain:";
 
   @Transactional
+  @TimeSlotLock
   public CreateReservationDto.Response create(CreateReservationDto.Request request) {
     ProgramTimeSlot timeSlot = timeSlotRepository.findByIdWithThrow(request.timeSlotId());
     Member member = getCurrentMember();
