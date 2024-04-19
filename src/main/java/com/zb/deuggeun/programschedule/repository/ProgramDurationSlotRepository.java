@@ -1,9 +1,12 @@
 package com.zb.deuggeun.programschedule.repository;
 
+import static com.zb.deuggeun.programschedule.entity.QProgramDurationSlot.programDurationSlot;
+import static com.zb.deuggeun.programschedule.type.ProgramDurationSlotStatus.ACTIVE;
+
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.zb.deuggeun.common.repository.CustomJpaRepository;
+import com.zb.deuggeun.program.entity.Program;
 import com.zb.deuggeun.programschedule.entity.ProgramDurationSlot;
-import com.zb.deuggeun.programschedule.entity.QProgramDurationSlot;
 import java.time.LocalDate;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
@@ -32,12 +35,12 @@ public interface ProgramDurationSlotRepository
    */
   private static BooleanExpression createOverlapExpression(
       Long durationId, Long programId, LocalDate startDate, LocalDate endDate) {
-    return QProgramDurationSlot.programDurationSlot.program.id.eq(programId)
-        .and(QProgramDurationSlot.programDurationSlot.startDate.before(endDate)
-            .or(QProgramDurationSlot.programDurationSlot.startDate.eq(endDate)))
-        .and(QProgramDurationSlot.programDurationSlot.endDate.after(startDate)
-            .or(QProgramDurationSlot.programDurationSlot.endDate.eq(startDate)))
-        .and(QProgramDurationSlot.programDurationSlot.id.ne(durationId));
+    return programDurationSlot.program.id.eq(programId)
+        .and(programDurationSlot.startDate.before(endDate)
+            .or(programDurationSlot.startDate.eq(endDate)))
+        .and(programDurationSlot.endDate.after(startDate)
+            .or(programDurationSlot.endDate.eq(startDate)))
+        .and(programDurationSlot.id.ne(durationId));
   }
 
   /**
@@ -50,10 +53,17 @@ public interface ProgramDurationSlotRepository
    */
   private static BooleanExpression createOverlapExpression(
       Long programId, LocalDate startDate, LocalDate endDate) {
-    return QProgramDurationSlot.programDurationSlot.program.id.eq(programId)
-        .and(QProgramDurationSlot.programDurationSlot.startDate.before(endDate)
-            .or(QProgramDurationSlot.programDurationSlot.startDate.eq(endDate)))
-        .and(QProgramDurationSlot.programDurationSlot.endDate.after(startDate)
-            .or(QProgramDurationSlot.programDurationSlot.endDate.eq(startDate)));
+    return programDurationSlot.program.id.eq(programId)
+        .and(programDurationSlot.startDate.before(endDate)
+            .or(programDurationSlot.startDate.eq(endDate)))
+        .and(programDurationSlot.endDate.after(startDate)
+            .or(programDurationSlot.endDate.eq(startDate)));
+  }
+
+  default boolean existsByProgramInActive(Program program) {
+    return this.exists(
+        programDurationSlot.program.eq(program)
+            .and(programDurationSlot.status.eq(ACTIVE))
+    );
   }
 }
