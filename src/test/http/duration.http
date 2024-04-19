@@ -12,7 +12,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlc
 ### 일정 생성 - dateOrder exception
 POST http://localhost:8080/program-duration-slots
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyNTk3NDAwLCJleHAiOjE3MTI2MDEwMDB9.nCuJvOJW-XSLbkEsYVxCE9farYiMTD4e18WVV2xhHzs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyOTc0NjY5LCJleHAiOjE3MTI5NzgyNjl9.2mAdQdBXwAQPD3yOlZGHA_SDoFayo5kFPuYBROSgGYM
 
 {
   "startDate": "2024-03-30",
@@ -23,10 +23,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlc
 ### 일정 수정
 PUT http://localhost:8080/program-duration-slots
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyNTk3NDAwLCJleHAiOjE3MTI2MDEwMDB9.nCuJvOJW-XSLbkEsYVxCE9farYiMTD4e18WVV2xhHzs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX01FTUJFUiJdLCJpYXQiOjE3MTMyOTM5NzUsImV4cCI6MTcxMzI5NzU3NX0.jAao5l7cSfM1hSAWa1LkZrbqNzxuuts2453yKrfQWBI
 
 {
   "durationId": "2",
   "startDate": "2024-03-10",
   "endDate": "2024-03-22"
 }
+
+
+###
+DELETE http://localhost:8080/program-duration-slots/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0MUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX1RSQUlORVIiXSwiaWF0IjoxNzEyOTc0NjY5LCJleHAiOjE3MTI5NzgyNjl9.2mAdQdBXwAQPD3yOlZGHA_SDoFayo5kFPuYBROSgGYM

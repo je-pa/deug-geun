@@ -9,11 +9,31 @@ Content-Type: application/json
   "role": "ROLE_TRAINER"
 }
 
+### 회원가입 - 멤버
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "name": "멤1",
+  "email": "m1@gmail.com",
+  "password": "pass1",
+  "role": "ROLE_MEMBER"
+}
+
 ### 로그인 - 트레이너
 POST http://localhost:8080/auth/signin
 Content-Type: application/json
 
 {
   "email": "t1@gmail.com",
+  "password": "pass1"
+}
+
+### 로그인 - 멤버
+POST http://localhost:8080/auth/signin
+Content-Type: application/json
+
+{
+  "email": "m1@gmail.com",
   "password": "pass1"
 }

@@ -84,6 +84,7 @@ public class ProgramDurationSlot extends BaseEntity {
     program.validateTrainerMatchLoginUser();
     if (this.status == INACTIVE || this.status == CREATED) {
       status = DELETED;
+      return;
     }
     throw new CustomException(IMMUTABLE_STATUS.getStatus(), IMMUTABLE_STATUS.getMessage());
   }
