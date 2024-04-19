@@ -19,6 +19,9 @@ import org.springframework.stereotype.Repository;
 public interface ReservationRepository
     extends CustomJpaRepository<Reservation, Long>, QuerydslPredicateExecutor<Reservation> {
 
+  Page<Reservation> findByReserverAndReserveDateIsBetween(
+      Member reserver, LocalDate startDate, LocalDate endDate, Pageable pageable);
+
   @Query("SELECT COUNT(r) FROM Reservation r WHERE r.timeSlot = :timeSlot AND r.reserveDate = :reserveDate AND (r.status = 'CREATED' OR r.status = 'APPROVED')")
   int countByTimeSlotAndReserveDate(ProgramTimeSlot timeSlot, LocalDate reserveDate);
 
@@ -33,15 +36,26 @@ public interface ReservationRepository
     );
   }
 
-  Page<Reservation> findByReserverAndReserveDateIsBetween(
-      Member reserver, LocalDate startDate, LocalDate endDate, Pageable pageable);
+  @Query("SELECT COUNT(r) > 0 FROM Reservation r " +
+      "WHERE r.reserver = :reserver " +
+      "AND r.reserveDate = :reserveDate " +
+      "AND r.status IN :statuses " +
+      "AND :startTime < r.timeSlot.endTime " +
+      "AND :endTime > r.timeSlot.startTime")
+  boolean existsByReserverAndTimeAndReserveDate(
+      Member reserver, ProgramTimeSlot timeSlot, LocalDate reserveDate,
+      List<ReservationStatus> statuses);
 
-  default Page<Reservation> findByTrainerAndReserveDateIsBetween(
-      Member trainer, LocalDate startDate, LocalDate endDate, Pageable pageable) {
-    return this.findAll(
-        reservation.program.trainer.eq(trainer)
-            .and(reservation.reserveDate.between(startDate, endDate)),
-        pageable
-    );
-  }
+  @Query("SELECT r FROM Reservation r " +
+      "WHERE r.program.trainer = :trainer " +
+      "AND r.reserveDate BETWEEN :startDate AND :endDate")
+  Page<Reservation> findByTrainerAndReserveDateIsBetween(
+      Member trainer, LocalDate startDate, LocalDate endDate, Pageable pageable);
+
+  @Query("SELECT CASE WHEN COUNT(r) > 0 THEN TRUE ELSE FALSE END " +
+      "FROM Reservation r " +
+      "WHERE r.timeSlot.durationSlot = :durationSlot " +
+      "AND r.status IN (:statusList)")
+  boolean existsByProgramDurationSlotInProgress(ProgramDurationSlot durationSlot,
+      List<ReservationStatus> statusList);
 }
