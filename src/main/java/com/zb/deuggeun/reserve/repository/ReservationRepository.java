@@ -8,6 +8,7 @@ import com.zb.deuggeun.reserve.dao.ReservationStatusSummary;
 import com.zb.deuggeun.reserve.entity.Reservation;
 import com.zb.deuggeun.reserve.type.ReservationStatus;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,10 +43,10 @@ public interface ReservationRepository
       "WHERE r.reserver = :reserver " +
       "AND r.reserveDate = :reserveDate " +
       "AND r.status IN :statuses " +
-      "AND :startTime < r.timeSlot.endTime " +
-      "AND :endTime > r.timeSlot.startTime")
+      "AND :startTime < :endTime " +
+      "AND :endTime > :startTime")
   boolean existsByReserverAndTimeAndReserveDate(
-      Member reserver, ProgramTimeSlot timeSlot, LocalDate reserveDate,
+      Member reserver, LocalTime startTime, LocalTime endTime, LocalDate reserveDate,
       List<ReservationStatus> statuses);
 
   @Query("SELECT r FROM Reservation r " +

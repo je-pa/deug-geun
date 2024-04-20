@@ -56,7 +56,8 @@ public class ReservationService {
 
     // 동일한 예약 시간이 있는지 확인
     if (reservationRepository.existsByReserverAndTimeAndReserveDate(
-        member, timeSlot, request.reserveDate(), List.of(CREATED, APPROVED))) {
+        member, timeSlot.getStartTime(), timeSlot.getEndTime(), request.reserveDate(),
+        List.of(CREATED, APPROVED))) {
       throw new CustomException(RESERVATION_DATETIME_CONFLICT.getStatus(),
           RESERVATION_DATETIME_CONFLICT.getMessage());
     }
