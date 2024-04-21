@@ -3,7 +3,10 @@ package com.zb.deuggeun.reserve.service;
 import static com.zb.deuggeun.common.exception.ExceptionCode.DATE_NOT_WITHIN_DURATION;
 import static com.zb.deuggeun.common.exception.ExceptionCode.RESERVATION_DATETIME_CONFLICT;
 import static com.zb.deuggeun.common.exception.ExceptionCode.RESERVATION_FULL;
+import static com.zb.deuggeun.reserve.type.ReservationStatus.APPROVED;
+import static com.zb.deuggeun.reserve.type.ReservationStatus.CREATED;
 
+import com.zb.deuggeun.common.aop.TimeSlotLock;
 import com.zb.deuggeun.common.exception.CustomException;
 import com.zb.deuggeun.common.redis.RedisService;
 import com.zb.deuggeun.member.entity.Member;
@@ -23,6 +26,7 @@ import com.zb.deuggeun.reserve.status.CreateStatusUpdater;
 import com.zb.deuggeun.reserve.status.RejectStatusUpdater;
 import com.zb.deuggeun.security.util.MySecurityUtil;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +44,7 @@ public class ReservationService {
   private static final String REMAIN_RESERVATION_COUNT_PREFIX = "reserve-remain:";
 
   @Transactional
+  @TimeSlotLock
   public CreateReservationDto.Response create(CreateReservationDto.Request request) {
     ProgramTimeSlot timeSlot = timeSlotRepository.findByIdWithThrow(request.timeSlotId());
     Member member = getCurrentMember();
@@ -51,7 +56,8 @@ public class ReservationService {
 
     // 동일한 예약 시간이 있는지 확인
     if (reservationRepository.existsByReserverAndTimeAndReserveDate(
-        member, timeSlot, request.reserveDate())) {
+        member, timeSlot.getStartTime(), timeSlot.getEndTime(), request.reserveDate(),
+        List.of(CREATED, APPROVED))) {
       throw new CustomException(RESERVATION_DATETIME_CONFLICT.getStatus(),
           RESERVATION_DATETIME_CONFLICT.getMessage());
     }

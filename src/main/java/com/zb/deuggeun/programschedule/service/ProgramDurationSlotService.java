@@ -2,6 +2,9 @@ package com.zb.deuggeun.programschedule.service;
 
 import static com.zb.deuggeun.common.exception.ExceptionCode.ENTITY_NOT_FOUND;
 import static com.zb.deuggeun.common.exception.ExceptionCode.PROGRAM_DURATION_CONFLICT;
+import static com.zb.deuggeun.common.exception.ExceptionCode.RESERVATION_IN_PROGRESS;
+import static com.zb.deuggeun.reserve.type.ReservationStatus.APPROVED;
+import static com.zb.deuggeun.reserve.type.ReservationStatus.CREATED;
 
 import com.zb.deuggeun.common.exception.CustomException;
 import com.zb.deuggeun.program.entity.Program;
@@ -12,7 +15,9 @@ import com.zb.deuggeun.programschedule.dto.UpdateProgramDurationSlotDto;
 import com.zb.deuggeun.programschedule.entity.ProgramDurationSlot;
 import com.zb.deuggeun.programschedule.repository.ProgramDurationSlotRepository;
 import com.zb.deuggeun.programschedule.repository.ProgramTimeSlotRepository;
+import com.zb.deuggeun.reserve.repository.ReservationRepository;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +29,7 @@ public class ProgramDurationSlotService {
   private final ProgramRepository programRepository;
   private final ProgramDurationSlotRepository durationSlotRepository;
   private final ProgramTimeSlotRepository timeSlotRepository;
+  private final ReservationRepository reservationRepository;
 
   /**
    * 일정을 추가하는 서비스
@@ -88,9 +94,16 @@ public class ProgramDurationSlotService {
 
   @Transactional
   public UpdateProgramDurationSlotDto.Response inactivate(Long durationSlotId) {
-    // TODO: REQUESTED, APPROVED 상태인 예약이 있는지 확인 필요
+    ProgramDurationSlot durationSlot = durationSlotRepository.findByIdWithThrow(durationSlotId);
+
+    if (reservationRepository.existsByProgramDurationSlotInProgress(durationSlot,
+        List.of(CREATED, APPROVED))) {
+      throw new CustomException(RESERVATION_IN_PROGRESS.getStatus()
+          , RESERVATION_IN_PROGRESS.getMessage());
+    }
+
     return UpdateProgramDurationSlotDto.Response.fromEntity(
-        durationSlotRepository.findByIdWithThrow(durationSlotId).inactivate());
+        durationSlot.inactivate());
   }
 
   @Transactional
