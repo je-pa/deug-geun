@@ -17,3 +17,18 @@ spring:
       port: 6379
   program:
     max-active-program-limit: 3
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+rabbitmq:
+  notifications:
+    topic-exchange:
+      name: notifications-exchange
+    queue:
+      name: notifications
+    routing-key:
+      name: notifications.#
+      daily-9am:
+        name: notifications.daily.9am
