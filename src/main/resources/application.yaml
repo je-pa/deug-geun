@@ -24,11 +24,21 @@ spring:
     password: guest
 rabbitmq:
   notifications:
-    topic-exchange:
-      name: notifications-exchange
-    queue:
-      name: notifications
-    routing-key:
-      name: notifications.#
-      daily-9am:
-        name: notifications.daily.9am
+    save:
+      topic-exchange:
+        name: notifications-save-exchange
+      queue:
+        name: notifications-save-queue
+      routing-key:
+        name: notifications.save.#
+        daily-9am:
+          name: notifications.save.daily.9am
+    push:
+      topic-exchange:
+        name: notifications-push-exchange
+      queue:
+        name: notifications-push-queue
+      routing-key:
+        name: notifications.push.#
+        daily-9am:
+          name: notifications.push.daily.9am
